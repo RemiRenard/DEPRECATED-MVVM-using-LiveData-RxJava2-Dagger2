@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jetpack</string>
+    <string name="Unexpected_server_error">Unexpected server error</string>
+</resources>
