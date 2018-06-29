@@ -1,8 +1,8 @@
 package com.app.jetpack.data.api
 
-import android.arch.lifecycle.LiveData
 import com.app.jetpack.data.api.apiRequest.ConnectRequest
 import com.app.jetpack.data.api.apiResponse.ConnectResponse
+import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -12,5 +12,5 @@ import retrofit2.http.POST
 interface NetworkService {
 
     @POST("user/login")
-    fun login(@Body params: ConnectRequest): LiveData<ApiResponse<ConnectResponse>>
+    fun login(@Body params: ConnectRequest): Observable<ConnectResponse>
 }

@@ -2,13 +2,13 @@ package com.app.jetpack.di
 
 import com.app.jetpack.data.api.NetworkService
 import com.app.jetpack.utils.Constants
-import com.app.jetpack.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -58,7 +58,7 @@ class AppModule {
         return Retrofit.Builder()
                 .baseUrl(Constants.SERVER_URL_PROD)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()
     }

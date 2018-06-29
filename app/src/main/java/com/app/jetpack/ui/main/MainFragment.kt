@@ -10,12 +10,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.app.jetpack.AppExecutors
+import android.widget.Toast
 import com.app.jetpack.R
+import com.app.jetpack.data.api.ExceptionHandler
 import com.app.jetpack.databinding.MainFragmentBinding
 import com.app.jetpack.di.Injectable
 import com.app.jetpack.ui.binding.FragmentDataBindingComponent
-import com.app.jetpack.utils.RetryCallback
 import com.app.jetpack.utils.autoCleared
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
@@ -25,9 +25,6 @@ class MainFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
 
     companion object {
         fun newInstance() = MainFragment()
@@ -49,11 +46,6 @@ class MainFragment : Fragment(), Injectable {
                 false,
                 dataBindingComponent
         )
-        dataBinding.retryCallback = object : RetryCallback {
-            override fun retry() {
-                viewModel.retry()
-            }
-        }
         binding = dataBinding
         return dataBinding.root
     }
@@ -63,13 +55,19 @@ class MainFragment : Fragment(), Injectable {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MainViewModel::class.java)
         button_login.setOnClickListener {
-            viewModel.setLogin(username.text.toString(), password.text.toString())
-            viewModel.login.observe(this, Observer {
-                binding.user = it?.data?.user
-                binding.connectResponse = it?.data
-                // this is only necessary because espresso cannot read data binding callbacks.
-                binding.executePendingBindings()
-            })
+            viewModel.login(username.text.toString(), password.text.toString())
         }
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.connectResponse.observe(this, Observer {
+            binding.user = it?.user
+            // this is only necessary because espresso cannot read data binding callbacks.
+            binding.executePendingBindings()
+        })
+        viewModel.connectError.observe(this, Observer {
+            Toast.makeText(context, ExceptionHandler.getMessage(it, context), Toast.LENGTH_SHORT).show()
+        })
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
  * Data Binding adapters specific to the app.
  */
 object BindingAdapters {
+
     @JvmStatic
     @BindingAdapter("visibleGone")
     fun showHide(view: View, show: Boolean) {

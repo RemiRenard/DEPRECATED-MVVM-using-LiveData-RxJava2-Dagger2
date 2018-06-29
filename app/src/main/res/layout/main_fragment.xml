@@ -11,10 +11,6 @@
         <variable
             name="connectResponse"
             type="com.app.jetpack.data.api.apiResponse.ConnectResponse" />
-
-        <variable
-            name="retryCallback"
-            type="com.app.jetpack.utils.RetryCallback" />
     </data>
 
     <android.support.constraint.ConstraintLayout
