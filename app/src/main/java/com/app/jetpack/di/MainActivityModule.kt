@@ -1,6 +1,6 @@
 package com.app.jetpack.di
 
-import com.app.jetpack.MainActivity
+import com.app.jetpack.ui.main.MainActivity
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

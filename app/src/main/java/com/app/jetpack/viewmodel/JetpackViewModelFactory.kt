@@ -1,4 +1,4 @@
-package com.app.jetpack.ui.viewmodel
+package com.app.jetpack.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
@@ -21,6 +21,5 @@ class JetpackViewModelFactory @Inject constructor(
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

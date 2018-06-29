@@ -1,9 +1,9 @@
-package com.app.jetpack
+package com.app.jetpack.ui.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.app.jetpack.ui.main.MainFragment
+import com.app.jetpack.R
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject

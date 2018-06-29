@@ -3,7 +3,7 @@ package com.app.jetpack.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.app.jetpack.ui.main.MainViewModel
-import com.app.jetpack.ui.viewmodel.JetpackViewModelFactory
+import com.app.jetpack.viewmodel.JetpackViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

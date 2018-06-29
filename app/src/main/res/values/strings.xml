@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Jetpack</string>
-    <string name="Unexpected_server_error">Unexpected server error</string>
+    <string name="hint_username">Enter the name of a github user</string>
+    <string name="find_repositories">Find repositories</string>
+    <string name="empty_text_warning">Please enter a username</string>
 </resources>

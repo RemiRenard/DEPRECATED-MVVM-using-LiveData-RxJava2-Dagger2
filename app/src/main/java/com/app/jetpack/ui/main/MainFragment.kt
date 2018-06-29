@@ -7,15 +7,17 @@ import android.databinding.DataBindingComponent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.app.jetpack.R
-import com.app.jetpack.data.api.ExceptionHandler
 import com.app.jetpack.databinding.MainFragmentBinding
 import com.app.jetpack.di.Injectable
 import com.app.jetpack.ui.binding.FragmentDataBindingComponent
+import com.app.jetpack.utils.AppExecutors
 import com.app.jetpack.utils.autoCleared
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
@@ -26,6 +28,9 @@ class MainFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var appExecutors: AppExecutors
+
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -33,6 +38,7 @@ class MainFragment : Fragment(), Injectable {
     var binding by autoCleared<MainFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
+    private var adapter by autoCleared<ReposAdapter>()
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -54,20 +60,38 @@ class MainFragment : Fragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MainViewModel::class.java)
-        button_login.setOnClickListener {
-            viewModel.login(username.text.toString(), password.text.toString())
-        }
+        initRecyclerView()
         observeViewModel()
+        button_find_repos.setOnClickListener {
+            if (username.text.isNotBlank()) {
+                viewModel.getRepos(username.text.toString())
+            } else {
+                Toast.makeText(context, R.string.empty_text_warning, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        val adapter = ReposAdapter(dataBindingComponent, appExecutors) {
+            Log.i("ReposAdapter", "ITEM CLICKED : id : $id")
+        }
+        this.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.adapter = adapter
+
     }
 
     private fun observeViewModel() {
-        viewModel.connectResponse.observe(this, Observer {
-            binding.user = it?.user
+        viewModel.repositories.observe(this, Observer {
+            binding.repositories = it
+            adapter.submitList(it)
             // this is only necessary because espresso cannot read data binding callbacks.
             binding.executePendingBindings()
         })
-        viewModel.connectError.observe(this, Observer {
-            Toast.makeText(context, ExceptionHandler.getMessage(it, context), Toast.LENGTH_SHORT).show()
+        viewModel.httpError.observe(this, Observer {
+            adapter.submitList(emptyList())
+            Toast.makeText(context, it?.message, Toast.LENGTH_SHORT).show()
         })
     }
 }

@@ -25,7 +25,6 @@ class AppModule {
         return Interceptor { chain ->
             val newRequest = chain.request().newBuilder()
                     .addHeader(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON)
-                    .addHeader(Constants.API_KEY_TITLE, Constants.API_KEY_VALUE)
                     .build()
             chain.proceed(newRequest)
         }
@@ -56,7 +55,7 @@ class AppModule {
     @Provides
     fun createRetrofitBuilder(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(Constants.SERVER_URL_PROD)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)

@@ -1,16 +1,15 @@
 package com.app.jetpack.data.api
 
-import com.app.jetpack.data.api.apiRequest.ConnectRequest
-import com.app.jetpack.data.api.apiResponse.ConnectResponse
+import com.app.jetpack.data.model.Repos
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * REST API access points
  */
 interface NetworkService {
 
-    @POST("user/login")
-    fun login(@Body params: ConnectRequest): Observable<ConnectResponse>
+    @GET("users/{user}/repos")
+    fun getRepos(@Path("user") user: String): Observable<List<Repos>>
 }
