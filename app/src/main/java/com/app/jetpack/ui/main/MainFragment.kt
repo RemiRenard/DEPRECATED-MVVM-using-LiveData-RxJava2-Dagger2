@@ -73,7 +73,7 @@ class MainFragment : Fragment(), Injectable {
 
     private fun initRecyclerView() {
         val adapter = ReposAdapter(dataBindingComponent, appExecutors) {
-            Log.i("ReposAdapter", "ITEM CLICKED : id : $id")
+            Log.i("ReposAdapter", "ITEM CLICKED : id : ${it.id}")
         }
         this.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
