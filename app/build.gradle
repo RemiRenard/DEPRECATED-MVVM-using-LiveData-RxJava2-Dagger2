@@ -31,17 +31,15 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
     // LiveData + ViewModel
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
-    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
     // Navigation
     implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
-
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    implementation 'com.jakewharton.timber:timber:4.6.0'
-    implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.rxJavaVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.loggingInterceptorVersion"
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
     implementation "com.google.dagger:dagger:$rootProject.dagger"
     implementation "com.google.dagger:dagger-android:$rootProject.dagger"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger"

@@ -6,24 +6,28 @@ buildscript {
         // Kotlin
         kotlinVersion = '1.2.41'
         // App dependencies
-        constraintLayoutVersion = '1.1.1'
+        constraintLayoutVersion = '1.1.2'
         dataBindingVersion = '3.0.1'
         espressoVersion = '3.0.1'
         junitVersion = '4.12'
         lifecycleVersion = '1.1.1'
-        navigationVersion = '1.0.0-alpha01'
+        navigationVersion = '1.0.0-alpha02'
         runnerVersion = '1.0.2'
         supportLibraryVersion = '27.1.1'
         retrofitVersion = '2.4.0'
         converterGsonVersion = '2.3.0'
         dagger = '2.15'
+        timberVersion = '4.6.0'
+        rxBindingVersion = '2.1.1'
+        rxJavaVersion = '2.3.0'
+        loggingInterceptorVersion = '3.9.0'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha18'
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha01'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
