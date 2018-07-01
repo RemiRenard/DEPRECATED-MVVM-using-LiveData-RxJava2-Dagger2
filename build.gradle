@@ -21,6 +21,7 @@ buildscript {
         rxBindingVersion = '2.1.1'
         rxJavaVersion = '2.3.0'
         loggingInterceptorVersion = '3.9.0'
+        roomVersion = '1.1.1'
     }
     repositories {
         google()

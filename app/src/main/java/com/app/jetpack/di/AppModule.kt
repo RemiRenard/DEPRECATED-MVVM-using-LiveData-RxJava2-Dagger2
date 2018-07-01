@@ -1,6 +1,10 @@
 package com.app.jetpack.di
 
+import android.app.Application
+import android.arch.persistence.room.Room
 import com.app.jetpack.data.api.NetworkService
+import com.app.jetpack.data.db.GithubDb
+import com.app.jetpack.data.db.RepoDao
 import com.app.jetpack.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -17,6 +21,7 @@ class AppModule {
 
     /**
      * Create the interceptor of retrofit.
+     *
      * @return Interceptor
      */
     @Singleton
@@ -32,6 +37,7 @@ class AppModule {
 
     /**
      * Create the client OkHttp for retrofit.
+     *
      * @param interceptor Interceptor
      * @return OkHttpClient
      */
@@ -48,6 +54,7 @@ class AppModule {
 
     /**
      * Create the retrofit builder.
+     *
      * @param client OkHttpClient
      * @return Retrofit
      */
@@ -64,6 +71,7 @@ class AppModule {
 
     /**
      * Return the network service of the app.
+     *
      * @param retrofit Retrofit
      * @return NetworkService
      */
@@ -71,4 +79,31 @@ class AppModule {
     @Provides
     fun createNetworkService(retrofit: Retrofit): NetworkService =
             retrofit.create(NetworkService::class.java)
+
+    /**
+     * Return the local database of the app.
+     *
+     * @param app Application
+     * @return GithubDb
+     */
+    @Singleton
+    @Provides
+    fun provideDb(app: Application): GithubDb {
+        return Room
+                .databaseBuilder(app, GithubDb::class.java, "github.db")
+                .fallbackToDestructiveMigration()
+                .build()
+    }
+
+    /**
+     * Return the Data Access Object of Repos.
+     *
+     * @param db GithubDb
+     * @return RepoDao
+     */
+    @Singleton
+    @Provides
+    fun provideRepoDao(db: GithubDb): RepoDao {
+        return db.repoDao()
+    }
 }
