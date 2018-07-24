@@ -22,8 +22,8 @@ class RxExampleRepository @Inject constructor() {
                 })
     }
 
-    // Rx wrapper around standards callbacks
-    fun creationOfObservable(): Observable<List<Int>> {
+    // Creation of a custom observable
+    fun newObservable(): Observable<List<Int>> {
         return Observable.create<List<Int>> {
             val list = arrayListOf(1, 4, 5, 3, 9, 10, 2, 8, 7, 5)
             list.sort()
@@ -40,6 +40,16 @@ class RxExampleRepository @Inject constructor() {
     fun job(): Observable<Boolean> {
         return Observable.interval(1, TimeUnit.SECONDS)
                 .flatMap { Observable.just(true) }
+    }
+
+    fun operationsOnList(): Observable<List<String>> {
+        return Observable.just(arrayListOf(" string1", "s tr  ing 2", "st ri ng3  ", "another one"))
+                // Use from instead of fromIterable for RxJava 1
+                .flatMap { Observable.fromIterable(it) }
+                .map { it.replace("\\s".toRegex(), "") }
+                .filter { it.contains("string") }
+                .toList()
+                .toObservable()
     }
 
     //TODO skip(10)/take(10) for pagination example.

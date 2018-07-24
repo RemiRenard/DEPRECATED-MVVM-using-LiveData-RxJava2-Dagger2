@@ -16,14 +16,16 @@ class RxExampleViewModel
     private val _ints = MutableLiveData<List<Int>>()
     private val _customError = MutableLiveData<Throwable>()
     private val _jobResult = MutableLiveData<Boolean>()
+    private val _stringWithoutSpace = MutableLiveData<List<String>>()
 
     val ints: MutableLiveData<List<Int>> = _ints
+    val strings: MutableLiveData<List<String>> = _stringWithoutSpace
     val customError: MutableLiveData<Throwable> = _customError
     val jobResult: MutableLiveData<Boolean> = _jobResult
 
     @SuppressLint("CheckResult")
     fun startRxTest() {
-        rxExampleRepository.creationOfObservable()
+        rxExampleRepository.newObservable()
                 .subscribe(object : Observer<List<Int>> {
                     override fun onComplete() {
                         // Do nothing for now.
@@ -43,7 +45,10 @@ class RxExampleViewModel
 
                 })
 
+        // We are using only the onNext because we just want to test the Rx Stream
+        // Use an observer instead for an app in production.
         rxExampleRepository.job().subscribe { _jobResult.postValue(it) }
+        rxExampleRepository.operationsOnList().subscribe { _stringWithoutSpace.postValue(it) }
     }
 
     override fun onCleared() {

@@ -63,11 +63,16 @@ class RxExampleFragment : Fragment(), Injectable {
         })
         viewModel.ints.observe(this, Observer {
             it?.map {
-                Log.i("item list ", it.toString())
+                Log.i("item list (integers)", it.toString())
             }
         })
         viewModel.jobResult.observe(this, Observer {
             Log.i("Job result ", it.toString())
+        })
+        viewModel.strings.observe(this, Observer {
+            it?.map {
+                Log.i("item list (string without space)", it)
+            }
         })
     }
 }
