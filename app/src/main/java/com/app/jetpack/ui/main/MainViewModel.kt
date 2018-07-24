@@ -18,7 +18,6 @@ class MainViewModel
 
     val repositories: MutableLiveData<List<Repos>> = _repositories
     val httpError: MutableLiveData<Throwable> = _httpError
-
     fun getRepos(user: String) {
         userRepository.getRepos(user)
                 .subscribe(object : Observer<List<Repos>> {

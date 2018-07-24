@@ -50,3 +50,4 @@ class GithubRepository @Inject constructor(private val networkService: NetworkSe
                 .toObservable()
     }
 }
+

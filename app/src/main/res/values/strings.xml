@@ -3,4 +3,5 @@
     <string name="hint_username">Enter the name of a github user</string>
     <string name="find_repositories">Find repositories</string>
     <string name="empty_text_warning">Please enter a username</string>
+    <string name="go_to_rx_example">Go to Rx example</string>
 </resources>

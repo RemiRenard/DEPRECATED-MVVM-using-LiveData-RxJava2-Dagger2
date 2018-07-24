@@ -3,6 +3,7 @@ package com.app.jetpack.ui.main
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingComponent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.app.jetpack.R
 import com.app.jetpack.databinding.MainFragmentBinding
 import com.app.jetpack.di.Injectable
 import com.app.jetpack.ui.binding.FragmentDataBindingComponent
+import com.app.jetpack.ui.rxExample.RxExampleActivity
 import com.app.jetpack.utils.AppExecutors
 import com.app.jetpack.utils.autoCleared
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -69,6 +71,9 @@ class MainFragment : Fragment(), Injectable {
                 Toast.makeText(context, R.string.empty_text_warning, Toast.LENGTH_SHORT).show()
             }
         }
+        button_rx_example.setOnClickListener {
+            startActivity(context?.let { RxExampleActivity.getIntent(it).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
+        }
     }
 
     private fun initRecyclerView() {
@@ -79,7 +84,6 @@ class MainFragment : Fragment(), Injectable {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
-
     }
 
     private fun observeViewModel() {
