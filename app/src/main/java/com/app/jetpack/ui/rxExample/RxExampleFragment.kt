@@ -74,5 +74,10 @@ class RxExampleFragment : Fragment(), Injectable {
                 Log.i("item list (string without space)", it)
             }
         })
+        viewModel.listWithPagination.observe(this, Observer {
+            it?.map {
+                Log.i("item list pagination for page 3", it.toString())
+            }
+        })
     }
 }

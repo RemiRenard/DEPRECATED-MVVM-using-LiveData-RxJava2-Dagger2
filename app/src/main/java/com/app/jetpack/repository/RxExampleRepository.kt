@@ -52,6 +52,18 @@ class RxExampleRepository @Inject constructor() {
                 .toObservable()
     }
 
-    //TODO skip(10)/take(10) for pagination example.
+    fun pagination(pageNumber: Int): Observable<MutableList<Int>> {
+        val nbItemPerPage = 20
+        val list = ArrayList<Int>()
+        for (i in 1..500) {
+            list.add(i)
+        }
+        return Observable.just(list)
+                .flatMap { Observable.fromIterable(it) }
+                .skip(((pageNumber - 1) * nbItemPerPage).toLong())
+                .take(nbItemPerPage.toLong())
+                .toList()
+                .toObservable()
+    }
 }
 

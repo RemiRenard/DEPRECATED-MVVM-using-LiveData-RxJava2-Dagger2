@@ -17,9 +17,11 @@ class RxExampleViewModel
     private val _customError = MutableLiveData<Throwable>()
     private val _jobResult = MutableLiveData<Boolean>()
     private val _stringWithoutSpace = MutableLiveData<List<String>>()
+    private val _listWithPagination = MutableLiveData<List<Int>>()
 
     val ints: MutableLiveData<List<Int>> = _ints
     val strings: MutableLiveData<List<String>> = _stringWithoutSpace
+    val listWithPagination: MutableLiveData<List<Int>> = _listWithPagination
     val customError: MutableLiveData<Throwable> = _customError
     val jobResult: MutableLiveData<Boolean> = _jobResult
 
@@ -49,6 +51,7 @@ class RxExampleViewModel
         // Use an observer instead for an app in production.
         rxExampleRepository.job().subscribe { _jobResult.postValue(it) }
         rxExampleRepository.operationsOnList().subscribe { _stringWithoutSpace.postValue(it) }
+        rxExampleRepository.pagination(3).subscribe { _listWithPagination.postValue(it) }
     }
 
     override fun onCleared() {
